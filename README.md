@@ -1,36 +1,64 @@
-# Modified Whatsapp-API
-<p align='center'>
-  <img src="https://files.catbox.moe/rhm9rt.webp" width="172">
+# WhatsApp Baileys
+
+<p align="center">
+  <img src="https://files.catbox.moe/369pux.jpg" alt="Thumbnail" />
 </p>
 
---- 
+WhatsApp Baileys is an open-source library designed to help developers build automation solutions and integrations with WhatsApp efficiently and directly. Using websocket technology without the need for a browser, this library supports a wide range of features such as message management, chat handling, group administration, as well as interactive messages and action buttons for a more dynamic user experience.
 
-## Usage
+Actively developed and maintained, baileys continuously receives updates to enhance stability and performance. One of the main focuses is to improve the pairing and authentication processes to be more stable and secure. Pairing features can be customized with your own codes, making the process more reliable and less prone to interruptions.
+
+This library is highly suitable for building business bots, chat automation systems, customer service solutions, and various other communication automation applications that require high stability and comprehensive features. With a lightweight and modular design, baileys is easy to integrate into different systems and platforms.
+
+---
+
+### Main Features and Advantages
+
+- Supports automatic and custom pairing processes
+- Fixes previous pairing issues that often caused failures or disconnections
+- Supports interactive messages, action buttons, and dynamic menus
+- Efficient automatic session management for reliable operation
+- Compatible with the latest multi-device features from WhatsApp
+- Lightweight, stable, and easy to integrate into various systems
+- Suitable for developing bots, automation, and complete communication solutions
+- Comprehensive documentation and example codes to facilitate development
+
+---
+
+## Development Status
+
+This repository is under active development.  
+Updates are focused on maintaining compatibility with recent WhatsApp changes, improving connection stability, and refining internal logic related to pairing and session persistence.
+
+Most changes are incremental and aimed at long-running stability rather than experimental features.
+
+---
+
+## Getting Started
+
+Begin by installing the library via your preferred package manager, then follow the provided configuration guide. You can also utilize the ready-made example codes to understand how the features work. Use session storage and interactive messaging features to build complete, stable solutions tailored to your business or project needs.
+
+## How To Usage?
 ```json
-"depencies": {
-  "@whiskeysockets/baileys": "github:qwerty-xcv/Baileys"
+"dependencies": {
+  "@whiskeysockets/baileys": "github:dilxzcode/bails"
 }
 ```
 ## Import
 ```javascript
 const {
-  default:makeWASocket,
-  // Other Options 
-} = require('@whiskeysockets/baileys');
+  default: makeWASocket
+} = require("@whiskeysockets/baileys");
 ```
 
 ---
 # How To Connect To Whatsapp
 ## With QR Code
 ```javascript
-const {
-  default: makeWASocket
-} = require('@whiskeysockets/baileys');
-
 const client = makeWASocket({
-  browser: ['Ubuntu', 'Chrome', '20.00.1'],
+  browser: ["Ubuntu", "Chrome", "20.0.0"],
   printQRInTerminal: true
-})
+});
 ```
 
 ## Connect With Number
@@ -38,19 +66,18 @@ const client = makeWASocket({
 const {
   default: makeWASocket,
   fetchLatestWAWebVersion
-} = require('@whiskeysockets/baileys');
+} = require("@whiskeysockets/baileys");
 
 const client = makeWASocket({
-  browser: ['Ubuntu', 'Chrome', '20.00.1'],
+  browser: ["Ubuntu", "Chrome", "20.0.0"],
   printQRInTerminal: false,
   version: fetchLatestWAWebVersion()
-  // Other options
 });
 
-const number = "628XXXXX";
-const code = await client.requestPairingCode(number.trim) /* Use : (number, "YYYYYYYY") for custom-pairing */
+const number = "628XXXXXXXXX";
+const code = await client.requestPairingCode(number.trim());
 
-console.log("Ur pairing code : " + code)
+console.log("Pairing Code:", code);
 ```
 
 # Sending messages
@@ -58,59 +85,67 @@ console.log("Ur pairing code : " + code)
 ## send orderMessage
 ```javascript
 const fs = require('fs');
-const ZeppImg = fs.readFileSync('./ZeppImage');
+const nameImg = fs.readFileSync('./Image');
 
 await client.sendMessage(m.chat, {
-  thumbnail: ZeppImg,
-  message: "Gotta get a grip",
-  orderTitle: "7eppeli-Corporation",
-  totalAmount1000: 72502,
+  thumbnail: nameImg,
+  message: "Example order message",
+  orderTitle: "Example Order",
+  totalAmount1000: 8888,
   totalCurrencyCode: "IDR"
-}, { quoted:m })
+}, { quoted: m });
 ```
 
 ## send pollResultSnapshotMessage
 ```javascript
 await client.sendMessage(m.chat, {
   pollResultMessage: {
-    name: "7eppeli-Corporation",
+    name: "Example Poll Result",
     options: [
-      {
-        optionName: "poll 1"
-      },
-      {
-        optionName: "poll 2"
-      }
+      { optionName: "Option A" },
+      { optionName: "Option B" }
     ],
     newsletter: {
-      newsletterName: "7eppeli | Killer Queen Information",
+      newsletterName: "Example Newsletter",
       newsletterJid: "1@newsletter"
     }
   }
-})
+});
 ```
 
 ## send productMessage
 ```javascript
 await client.relayMessage(m.chat, {
-  productMessage {
-    title: "7eppeli.pdf",
-    description: "zZZ...",
-    thumbnail: { url: "./ZeppImage" },
-    productId: "EXAMPLE_TOKEN",
-    retailerId: "EXAMPLE_RETAILER_ID",
-    url: "https://t.me/YuukeyD7eppeli",
-    body: "Nak Tido",
-    footer: "Footer",
+  productMessage: {
+    title: "Example Product",
+    description: "Product description example",
+    thumbnail: { url: "./example.jpg" },
+    productId: "PRODUCT_ID",
+    retailerId: "RETAILER_ID",
+    url: "https://example.com",
+    body: "Product body text",
+    footer: "Example footer",
     buttons: [
       {
         name: "cta_url",
-        buttonParamsJson: "{\"display_text\":\"7eppeli-Pdf\",\"url\":\"https://t.me/YuukeyD7eppeli\"}"
+        buttonParamsJson: JSON.stringify({
+          display_text: "Open Link",
+          url: "https://example.com"
+        })
       }
     ],
-    priceAmount1000: 72502,
+    priceAmount1000: 50000,
     currencyCode: "IDR"
   }
-})
+});
 ```
-Follow https://t.me/TenkaWaBails kalau mau liat type message yg lain :v
+## Thanks For Support
+```javascript
+const credits = {
+  author: "dilxz",
+  source: "kiuur",
+  reference: "yuukey"
+};
+
+module.exports = credits;
+```
